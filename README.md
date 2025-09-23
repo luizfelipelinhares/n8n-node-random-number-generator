@@ -1,48 +1,125 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+# 🎲 n8n Custom Node: Random Number Generator
 
-# n8n-nodes-starter
+Custom node para n8n que gera números aleatórios através da API Random.org, desenvolvido como parte do processo seletivo da Onfly.
 
-This repo contains example nodes to help you get started building your own custom integrations for [n8n](https://n8n.io). It includes the node linter and other dependencies.
+[Detalhes do desafio](docs/Desafio.md)
 
-To make your custom node available to the community, you must create it as an npm package, and [submit it to the npm registry](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry).
+## 📋 Sobre o Projeto
 
-If you would like your node to be available on n8n cloud you can also [submit your node for verification](https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/).
+O conector **Random** possui uma única operação "True Random Number Generator" que:
+- Recebe parâmetros de entrada: **Min** e **Max** (números inteiros)
+- Utiliza a API Random.org para gerar números verdadeiramente aleatórios
+- Retorna o número gerado com metadados (timestamp, min, max)
 
-## Prerequisites
+### 💻 Tecnologias Utilizadas
+- **Node.js 22**
+- **TypeScript**
+- **n8n**
+- **Docker**
+- **PostgreSQL**
+- **Random.org API**
 
-You need the following installed on your development machine:
+### 📦 Estrutura do Projeto
 
-* [git](https://git-scm.com/downloads)
-* Node.js and npm. Minimum version Node 20. You can find instructions on how to install both using nvm (Node Version Manager) for Linux, Mac, and WSL [here](https://github.com/nvm-sh/nvm). For Windows users, refer to Microsoft's guide to [Install NodeJS on Windows](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-windows).
-* Install n8n with:
-  ```
-  npm install n8n -g
-  ```
-* Recommended: follow n8n's guide to [set up your development environment](https://docs.n8n.io/integrations/creating-nodes/build/node-development-environment/).
+```
+├── nodes/
+│   └── Random/
+│       ├── Random.node.ts      # Implementação do nó n8n
+│       ├── Random.node.json    # Metadados do nó
+│       ├── RandomService.ts    # Serviço para API Random.org
+│       └── random.svg          # Ícone do nó
+├── docker-compose.yml          # Configuração dos serviços
+├── Dockerfile                  # Build do custom node
+├── package.json               # Dependências e scripts
+├── tsconfig.json             # Configuração TypeScript
+├── gulpfile.js               # Build dos ícones
+└── init-data.sh             # Inicialização do banco
+```
 
-## Using this starter
+## ⚙️ Instalação e Configuração
 
-These are the basic steps for working with the starter. For detailed guidance on creating and publishing nodes, refer to the [documentation](https://docs.n8n.io/integrations/creating-nodes/).
+### 1. Instale o Node.js 22 (LTS)
+**Baixe e instale em: https://nodejs.org/**
+```bash
+# Verifique a instalação:
+node --version  # deve mostrar v22.x.x
+npm --version
+```
 
-1. [Generate a new repository](https://github.com/n8n-io/n8n-nodes-starter/generate) from this template repository.
-2. Clone your new repo:
-   ```
-   git clone https://github.com/<your organization>/<your-repo-name>.git
-   ```
-3. Run `npm i` to install dependencies.
-4. Open the project in your editor.
-5. Browse the examples in `/nodes` and `/credentials`. Modify the examples, or replace them with your own nodes.
-6. Update the `package.json` to match your details.
-7. Run `npm run lint` to check for errors or `npm run lintfix` to automatically fix errors when possible.
-8. Test your node locally. Refer to [Run your node locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/) for guidance.
-9. Replace this README with documentation for your node. Use the [README_TEMPLATE](README_TEMPLATE.md) to get started.
-10. Update the LICENSE file to use your details.
-11. [Publish](https://docs.npmjs.com/packages-and-modules/contributing-packages-to-the-registry) your package to npm.
+### 2. Instale o Docker e Docker Compose
+**Baixe e instale em: https://www.docker.com/get-started**
+```bash
+# Verifique a instalação:
+docker --version
+docker-compose --version
+```
 
-## More information
+### 3. Instale o Git
+**Baixe e instale em: https://git-scm.com/**
+```bash
+# Verifique a instalação:
+git --version
+```
 
-Refer to our [documentation on creating nodes](https://docs.n8n.io/integrations/creating-nodes/) for detailed information on building your own nodes.
+### 4. Clone o Repositório
+```bash
+git clone https://github.com/luizfelipelinhares/n8n-node-random-number-generator.git
+cd n8n-node-random-number-generator
+```
 
-## License
+### 5. Configure as Variáveis de Ambiente
+Crie um arquivo `.env` na raiz do projeto:
+```bash
+# Configurações do PostgreSQL
+POSTGRES_USER=n8n_user
+POSTGRES_PASSWORD=n8n_password
+POSTGRES_DB=n8n_db
+POSTGRES_NON_ROOT_USER=n8n_app
+POSTGRES_NON_ROOT_PASSWORD=n8n_app_password
+```
 
-[MIT](https://github.com/n8n-io/n8n-nodes-starter/blob/master/LICENSE.md)
+### 6. Execute o Projeto
+```bash
+docker-compose up --build -d
+```
+
+## 🎯 Como Usar o Custom Node
+
+### 1 - Acesse o n8n: em http://localhost:5678
+![URL](docs/images/0-Url.png)
+
+### 2 - Configure sua conta no primeiro acesso
+![Configurar Conta](docs/images/1-ConfigurarConta.png)
+
+### 3 - Crie um novo workflow
+![Criar Workflow](docs/images/2-CriarWorkflow.png)
+
+### 4 - Adicione o node "Random" (procure por "Random" na paleta de nós)
+![Escolher o node](docs/images/3-EscolherNode.png)
+
+### 5 - Configure os parâmetros e execute
+   - **Min**: Valor mínimo (ex: 1)
+   - **Max**: Valor máximo (ex: 100)
+   #### *Valores permitidos: entre -1000000000 e 1000000000*
+![Executar](docs/images/4-ExecutarNode.png)
+
+### 6 - Veja os resultados
+![Resultados](docs/images/5-Resultados.png)
+
+#### Exemplo de Saída
+```json
+{
+  "random": 42,
+  "min": 1,
+  "max": 100,
+  "timestamp": "2025-09-23 19:17:11 UTC"
+}
+```
+
+## 📚 Recursos Utilizados
+- [n8n - Build a programmatic-style node](https://docs.n8n.io/integrations/creating-nodes/build/programmatic-style-node/)
+- [n8n - Docker installation](https://docs.n8n.io/hosting/installation/docker/)
+- [n8n - Run nodes locally](https://docs.n8n.io/integrations/creating-nodes/test/run-node-locally/)
+- [n8n - Hosting with PostgreSQL](https://docs.n8n.io/hosting/installation/docker/#using-with-postgresql)
+- [n8n - Docs AI](https://docs.n8n.io/)
+- [API Random.org](https://www.random.org/clients/http/)
