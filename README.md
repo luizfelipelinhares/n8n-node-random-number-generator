@@ -1,8 +1,6 @@
 # 🎲 n8n Custom Node: Random Number Generator
 
-Custom node para n8n que gera números aleatórios através da API Random.org, desenvolvido como parte do processo seletivo da Onfly.
-
-[Detalhes do desafio](docs/Desafio.md)
+Custom node para n8n que gera números aleatórios através da API Random.org utilizando Docker e PostgreSQL, desenvolvido como parte do processo seletivo da Onfly.  [(Detalhes do desafio)](docs/Desafio.md)
 
 ## 📋 Sobre o Projeto
 
