@@ -71,11 +71,11 @@ cd n8n-node-random-number-generator
 Crie um arquivo `.env` na raiz do projeto:
 ```bash
 # Configurações do PostgreSQL
-POSTGRES_USER=n8n_user
-POSTGRES_PASSWORD=n8n_password
+POSTGRES_USER=ChangeSuperUser
+POSTGRES_PASSWORD=ChangeSuperUserPassword
 POSTGRES_DB=n8n_db
-POSTGRES_NON_ROOT_USER=n8n_app
-POSTGRES_NON_ROOT_PASSWORD=n8n_app_password
+POSTGRES_NON_ROOT_USER=ChangeUser
+POSTGRES_NON_ROOT_PASSWORD=ChangeUserPassword
 ```
 
 ### 6. Execute o Projeto

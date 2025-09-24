@@ -19,7 +19,7 @@ services:
       test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
       interval: 10s
       timeout: 10s
-      retries: 20
+      retries: 60
 
   n8n:
     build:
